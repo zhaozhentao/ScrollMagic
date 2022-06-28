@@ -1,8 +1,86 @@
-<html>
+<!DOCTYPE html>
+<html class="no-js" lang="en">
 <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=500"/>
+    <link rel="stylesheet" href="../../assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="../../assets/css/examples.css" type="text/css">
+    <script type="text/javascript" src="../../assets/js/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../../assets/js/lib/gsap3/gsap.min.js"></script>
+    <script type="text/javascript" src="../../scrollmagic/uncompressed/ScrollMagic.js"></script>
+    <script type="text/javascript" src="../../scrollmagic/uncompressed/plugins/animation.gsap.js"></script>
+    <script type="text/javascript" src="../../scrollmagic/uncompressed/plugins/debug.addIndicators.js"></script>
+    <style>
+        .digit {
+            opacity: 0;
+            -webkit-transform: translateX(-40px);
+            -moz-transform: translateX(-40px);
+            -ms-transform: translateX(-40px);
+            -o-transform: translateX(-40px);
+            transform: translateX(-40px);
+            -webkit-transition: all 0.6s ease-out;
+            -moz-transition: all 0.6s ease-out;
+            -ms-transition: all 0.6s ease-out;
+            -o-transition: all 0.6s ease-out;
+            transition: all 0.6s ease-out;
+        }
 
+        .digit.visible {
+            opacity: 1;
+            -webkit-transform: none;
+            -moz-transform: none;
+            -ms-transform: none;
+            -o-transform: none;
+            transform: none;
+        }
+
+        .digit:nth-child(2) {
+            margin-top: 50px;
+        }
+
+        .digit:nth-child(3) {
+            margin-top: 100px;
+        }
+
+        .digit:nth-child(4) {
+            margin-top: 150px;
+        }
+
+        .digit:nth-child(5) {
+            margin-top: 200px;
+        }
+    </style>
 </head>
 <body>
+<div id="example-wrapper">
+    <div class="scrollContent">
+        <div style="height: 100%"></div>
+        <div id="reveal-elements">
+            <div class="box1 digit blue"><p>1</p></div>
+            <div class="box1 digit turqoise"><p>2</p></div>
+            <div class="box1 digit red"><p>3</p></div>
+            <div class="box1 digit green"><p>4</p></div>
+            <div class="box1 digit orange"><p>5</p></div>
+        </div>
+        <div style="height: 100%"></div>
+    </div>
+</div>
+<script>
+    let controller = new ScrollMagic.Controller();
 
+    let revealElements = document.getElementsByClassName("digit");
+    for (let i = 0; i < revealElements.length; i++) { // create a scene for each element
+        new ScrollMagic.Scene({
+            triggerElement: revealElements[i], // y value not modified, so we can use element as trigger as well
+            offset: 50,												 // start a little later
+            triggerHook: 0.9,
+        })
+            .setClassToggle(revealElements[i], "visible") // add class toggle
+            .addIndicators({name: "digit " + (i + 1)}) // add indicators (requires plugin)
+            .addTo(controller);
+    }
+</script>
 </body>
 </html>
