@@ -89,6 +89,10 @@
                 font-size: 90px;
             }
         }
+
+        .uk-width-large {
+            width: 299px;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +100,12 @@
     <h2 class="uk-heading-xlarge">
         Sustainable and outstanding in design
     </h2>
+
+    <img class="uk-width-large" src="./organic-scaled-571f907c.webp" id="animate" alt="">
+    <div id="trigger"></div>
+
     <div style="height: 100%"></div>
+
     <div id="reveal-elements">
         <div class="box1 digit blue"><p>1</p></div>
         <div class="box1 digit turqoise"><p>2</p></div>
@@ -104,17 +113,28 @@
         <div class="box1 digit green"><p>4</p></div>
         <div class="box1 digit orange"><p>5</p></div>
     </div>
+
     <div style="height: 100%"></div>
 </div>
 <script>
     let controller = new ScrollMagic.Controller();
 
+    // 标题闪出
     let h2 = document.getElementsByClassName("uk-heading-xlarge");
     new ScrollMagic.Scene({triggerElement: h2[0], triggerHook: 0.2})
         .setClassToggle(h2[0], "visible")
         .addIndicators({name: "h2"})
         .addTo(controller);
 
+    // build tween
+    let tween = TweenMax.to("#animate", 1, {translateX: -10, ease: Linear.easeNone});
+
+    let scene = new ScrollMagic.Scene({triggerElement: "#trigger", duration: "100"})
+        .setTween(tween)
+        .addIndicators({name: "image"})
+        .addTo(controller);
+
+    // 小方格一个个闪现
     let revealElements = document.getElementsByClassName("digit");
     for (let i = 0; i < revealElements.length; i++) {
         new ScrollMagic.Scene({
